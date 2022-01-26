@@ -34,7 +34,22 @@ E_avg_high = E_tot_T_high./pop_high;
 
 %% 7. energy_temp_plot
 
-plot([E_avg_low, E_avg_mid, E_avg_high], [T_low, T_mid, T_high]);
+w = [E_avg_low, E_avg_mid, E_avg_high];
+y = w;
+
+plot([T_low, T_mid, T_high], y, 'o');
+set(gca, 'FontSize', 8, 'LineWidth', 1);
+xlabel('temperature','FontSize',12);
+ylabel('average energy','FontSize',12);
+fig = gcf; %gcf gets the current figure 
+fig.PaperUnits = 'inches'; 
+fig.PaperPosition = [0 0 3.3 2.5];
+c = polyfit([T_low, T_mid, T_high], y, 1);
+disp(['Equation is y = ' num2str(c(1)) '*x + ' num2str(c(2))])
+y_est = polyval(c,[T_low, T_mid, T_high]);
+hold on
+plot([T_low, T_mid, T_high],y_est,'r--','LineWidth',2)
+hold off
 
 %% Functions
 
